@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Presentation Skill — Example Output</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark-teal:  #1A6B5A;
+    --teal:       #00857C;
+    --yellow:     #FFD100;
+    --offwhite:   #F5F5F0;
+    --charcoal:   #1C2B39;
+    --mid-grey:   #6B7C8D;
+    --light-grey: #E8EAE6;
+    --white:      #ffffff;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-serif:   'DM Serif Display', serif;
+    --font-sans:    'DM Sans', sans-serif;
+    --font-mono:    'DM Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%; overflow: hidden;
+    font-family: var(--font-sans);
+    background: var(--charcoal);
+  }
+  .slide-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  .slide-container::-webkit-scrollbar { display: none; }
+  .slide {
+    height: 100vh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(32px, 5vw, 72px);
+    position: relative;
+  }
+
+  /* COVER */
+  .slide-cover {
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(0,133,124,0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 10% 90%, rgba(26,107,90,0.3) 0%, transparent 50%),
+      linear-gradient(145deg, #0d1f2d 0%, #1C2B39 50%, #152820 100%);
+    justify-content: flex-end;
+  }
+  .cover-eyebrow {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 1vw, 13px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: clamp(12px, 2vh, 24px);
+  }
+  .cover-title {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 6.5vw, 86px);
+    font-weight: 700;
+    line-height: 1.0;
+    color: var(--offwhite);
+    margin-bottom: clamp(4px, 0.6vh, 10px);
+  }
+  .cover-title em {
+    display: block;
+    font-style: italic;
+    color: var(--yellow);
+  }
+  .cover-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(14px, 1.4vw, 18px);
+    font-weight: 400;
+    color: var(--mid-grey);
+    margin-top: clamp(16px, 2.5vh, 32px);
+    max-width: 520px;
+  }
+  .cover-rule {
+    width: clamp(48px, 6vw, 80px);
+    height: 3px;
+    background: var(--yellow);
+    margin: clamp(20px, 3vh, 36px) 0;
+  }
+  .cover-meta {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 0.95vw, 12px);
+    letter-spacing: 0.12em;
+    color: var(--mid-grey);
+    margin-top: clamp(32px, 5vh, 56px);
+  }
+
+  /* CHAPTER */
+  .slide-chapter {
+    background:
+      linear-gradient(160deg, var(--dark-teal) 0%, #0f4a3e 100%);
+  }
+  .chapter-number {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 1vw, 12px);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,209,0,0.7);
+    margin-bottom: clamp(10px, 1.5vh, 18px);
+  }
+  .chapter-title {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4.5vw, 58px);
+    font-weight: 400;
+    color: var(--offwhite);
+    line-height: 1.15;
+    max-width: 680px;
+    margin-bottom: clamp(16px, 2.5vh, 32px);
+  }
+  .chapter-rule {
+    width: clamp(40px, 5vw, 64px);
+    height: 3px;
+    background: var(--yellow);
+  }
+  .chapter-desc {
+    margin-top: clamp(16px, 2.5vh, 28px);
+    font-size: clamp(14px, 1.3vw, 17px);
+    color: rgba(245,245,240,0.7);
+    max-width: 540px;
+    line-height: 1.65;
+  }
+
+  /* CONTENT — LIGHT */
+  .slide-content-light {
+    background:
+      radial-gradient(ellipse at 95% 5%, rgba(0,133,124,0.06) 0%, transparent 45%),
+      linear-gradient(170deg, #f8f8f3 0%, var(--offwhite) 100%);
+  }
+  .slide-header {
+    margin-top: clamp(0px, 2vh, 20px);
+    margin-bottom: clamp(8px, 1.5vh, 18px);
+  }
+  .slide-label {
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 0.9vw, 11px);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .slide-title {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 2.8vw, 36px);
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-top: clamp(4px, 0.6vh, 8px);
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 1.5vw, 20px);
+    margin-top: clamp(12px, 2vh, 24px);
+  }
+  .resource-card {
+    background: var(--white);
+    border-radius: 6px;
+    border-top: 3px solid var(--yellow);
+    padding: clamp(14px, 1.8vw, 22px);
+    box-shadow: 0 2px 12px rgba(28,43,57,0.07);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6px, 0.8vh, 10px);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .resource-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(28,43,57,0.12);
+  }
+  .resource-badge {
+    font-family: var(--font-mono);
+    font-size: clamp(8px, 0.75vw, 10px);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .badge-book    { background: var(--dark-teal); color: #fff; }
+  .badge-film    { background: var(--charcoal); color: var(--yellow); }
+  .badge-article { background: var(--teal); color: #fff; }
+  .resource-title {
+    font-family: var(--font-serif);
+    font-size: clamp(14px, 1.4vw, 18px);
+    color: var(--charcoal);
+    line-height: 1.25;
+  }
+  .resource-author {
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 0.85vw, 11px);
+    color: var(--mid-grey);
+    letter-spacing: 0.06em;
+  }
+  .resource-precis {
+    font-size: clamp(11px, 1.05vw, 13px);
+    color: var(--mid-grey);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .resource-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: clamp(6px, 0.8vh, 10px);
+  }
+  .link-btn {
+    font-family: var(--font-mono);
+    font-size: clamp(8px, 0.75vw, 10px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .link-btn:hover { opacity: 0.8; }
+  .link-amazon    { background: var(--charcoal); color: #fff; }
+  .link-booktopia { background: var(--teal); color: #fff; }
+  .link-audible   { background: var(--yellow); color: var(--charcoal); }
+  .link-netflix   { background: var(--charcoal); color: var(--yellow); }
+  .link-youtube   { background: var(--dark-teal); color: var(--offwhite); }
+  .link-web       { background: var(--light-grey); color: var(--charcoal); border: 1px solid var(--mid-grey); }
+
+  /* CONTENT — TEAL TINT */
+  .slide-content-teal {
+    background: linear-gradient(160deg, #e6f2f0 0%, #d4ece8 100%);
+  }
+
+  /* QUOTE */
+  .slide-quote {
+    background: linear-gradient(145deg, var(--charcoal) 0%, #111c26 100%);
+    align-items: center;
+    text-align: center;
+  }
+  .pull-quote {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.5vw, 44px);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--offwhite);
+    line-height: 1.35;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .pull-quote::before { content: '\201C'; color: var(--yellow); }
+  .pull-quote::after  { content: '\201D'; color: var(--yellow); }
+  .quote-attribution {
+    margin-top: clamp(20px, 3vh, 36px);
+    font-family: var(--font-mono);
+    font-size: clamp(11px, 1.05vw, 13px);
+    letter-spacing: 0.12em;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+  }
+
+  /* CLOSING */
+  .slide-closing {
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(0,133,124,0.2) 0%, transparent 50%),
+      linear-gradient(145deg, #0d1f2d 0%, var(--charcoal) 60%, #1A6B5A 100%);
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  .closing-title {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 5.5vw, 72px);
+    font-weight: 700;
+    color: var(--offwhite);
+    line-height: 1.05;
+  }
+  .closing-title em {
+    display: block;
+    font-style: italic;
+    color: var(--yellow);
+  }
+  .closing-rule {
+    width: clamp(40px, 5vw, 64px);
+    height: 3px;
+    background: var(--yellow);
+    margin: clamp(16px, 2.5vh, 28px) 0;
+  }
+  .closing-detail {
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 0.95vw, 12px);
+    letter-spacing: 0.14em;
+    color: var(--mid-grey);
+  }
+
+  /* NAV */
+  .slide-nav {
+    position: fixed;
+    right: clamp(16px, 2.5vw, 28px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(245,245,240,0.25);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    padding: 0;
+  }
+  .nav-dot.active {
+    background: var(--yellow);
+    transform: scale(1.4);
+  }
+  #slide-counter {
+    position: fixed;
+    bottom: clamp(14px, 2vh, 22px);
+    right: clamp(16px, 2.5vw, 28px);
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 0.85vw, 11px);
+    letter-spacing: 0.1em;
+    color: rgba(245,245,240,0.35);
+    z-index: 100;
+  }
+
+  /* KEY POINTS LIST */
+  .key-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.4vh, 18px);
+    margin-top: clamp(12px, 2vh, 24px);
+  }
+  .key-point {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(10px, 1.2vw, 16px);
+    padding: clamp(12px, 1.6vw, 18px);
+    background: var(--white);
+    border-radius: 6px;
+    border-top: 3px solid var(--yellow);
+    box-shadow: 0 2px 8px rgba(28,43,57,0.06);
+  }
+  .key-point-icon {
+    flex-shrink: 0;
+    color: var(--teal);
+  }
+  .key-point-text {
+    font-size: clamp(13px, 1.2vw, 16px);
+    color: var(--charcoal);
+    line-height: 1.55;
+  }
+  .key-point-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: clamp(9px, 0.8vw, 11px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+
+  /* PRINT */
+  @media print {
+    .slide-nav, #slide-counter { display: none !important; }
+    html, body { overflow: visible; height: auto; }
+    .slide-container { overflow: visible; scroll-snap-type: none; }
+    .slide {
+      height: 100vh;
+      page-break-after: always;
+      break-after: page;
+      overflow: hidden;
+    }
+    .resource-links { display: none; }
+    .slide-cover, .slide-chapter, .slide-quote, .slide-closing {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="slide-container" id="sc">
+
+  <!-- COVER -->
+  <section class="slide slide-cover">
+    <div class="cover-eyebrow">Executive Presentation Skill · Example Output</div>
+    <div class="cover-title">
+      The Age of<br>
+      <em>Intelligent Work</em>
+    </div>
+    <div class="cover-rule"></div>
+    <div class="cover-subtitle">A curated resource guide on enterprise AI adoption, human-AI collaboration, and building resilient organisations.</div>
+    <div class="cover-meta">AI Leaders Forum · March 2026 · Brisbane</div>
+  </section>
+
+  <!-- CHAPTER 1 -->
+  <section class="slide slide-chapter">
+    <div class="chapter-number">Chapter 01</div>
+    <div class="chapter-title">Understanding the Shift</div>
+    <div class="chapter-rule"></div>
+    <div class="chapter-desc">The foundational texts that reframe AI not as a technology trend, but as a structural transformation in how organisations create value.</div>
+  </section>
+
+  <!-- CONTENT — BOOKS -->
+  <section class="slide slide-content-light">
+    <div class="slide-header">
+      <div class="slide-label">Chapter 01 · Reading List</div>
+      <div class="slide-title">Essential Books</div>
+    </div>
+    <div class="cards-grid">
+      <div class="resource-card">
+        <div class="resource-badge badge-book">Book</div>
+        <div class="resource-title">Co-Intelligence</div>
+        <div class="resource-author">Ethan Mollick</div>
+        <div class="resource-precis">A practical and philosophically grounded guide to working alongside AI, arguing that the most important skill is learning to think with AI rather than about it.</div>
+        <div class="resource-links">
+          <a href="https://www.amazon.com.au/s?k=Co-Intelligence+Ethan+Mollick" class="link-btn link-amazon" target="_blank">Amazon AU</a>
+          <a href="https://www.booktopia.com.au/search.ep?q=Co-Intelligence" class="link-btn link-booktopia" target="_blank">Booktopia</a>
+          <a href="https://www.audible.com.au/search?keywords=Co-Intelligence" class="link-btn link-audible" target="_blank">Audible</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-badge badge-book">Book</div>
+        <div class="resource-title">The Coming Wave</div>
+        <div class="resource-author">Mustafa Suleyman</div>
+        <div class="resource-precis">From a DeepMind co-founder: a rigorous argument for why AI and synthetic biology represent the most consequential technological wave in history — and why containment is essential.</div>
+        <div class="resource-links">
+          <a href="https://www.amazon.com.au/s?k=The+Coming+Wave+Mustafa+Suleyman" class="link-btn link-amazon" target="_blank">Amazon AU</a>
+          <a href="https://www.booktopia.com.au/search.ep?q=The+Coming+Wave" class="link-btn link-booktopia" target="_blank">Booktopia</a>
+          <a href="https://www.audible.com.au/search?keywords=The+Coming+Wave" class="link-btn link-audible" target="_blank">Audible</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-badge badge-book">Book</div>
+        <div class="resource-title">Power and Prediction</div>
+        <div class="resource-author">Agrawal, Gans, Goldfarb</div>
+        <div class="resource-precis">The economists behind Prediction Machines return with a sharper thesis: AI shifts power between institutions and individuals in ways that demand deliberate strategic response.</div>
+        <div class="resource-links">
+          <a href="https://www.amazon.com.au/s?k=Power+and+Prediction+Agrawal" class="link-btn link-amazon" target="_blank">Amazon AU</a>
+          <a href="https://www.booktopia.com.au/search.ep?q=Power+and+Prediction" class="link-btn link-booktopia" target="_blank">Booktopia</a>
+          <a href="https://www.audible.com.au/search?keywords=Power+and+Prediction" class="link-btn link-audible" target="_blank">Audible</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 2 -->
+  <section class="slide slide-chapter">
+    <div class="chapter-number">Chapter 02</div>
+    <div class="chapter-title">Building the Intelligent Organisation</div>
+    <div class="chapter-rule"></div>
+    <div class="chapter-desc">How leading enterprises are designing AI-native workflows, governance structures, and capability uplift programmes that actually stick.</div>
+  </section>
+
+  <!-- CONTENT — KEY POINTS -->
+  <section class="slide slide-content-teal">
+    <div class="slide-header">
+      <div class="slide-label">Chapter 02 · Principles</div>
+      <div class="slide-title">What the Research Shows</div>
+    </div>
+    <ul class="key-points">
+      <li class="key-point">
+        <svg class="key-point-icon" width="clamp(16px,1.4vw,20px)" height="clamp(16px,1.4vw,20px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <div class="key-point-text"><span class="key-point-label">Speed asymmetry</span>AI-enabled workers complete knowledge tasks 25–40% faster — but only when the workflow is redesigned around AI, not bolted onto legacy processes.</div>
+      </li>
+      <li class="key-point">
+        <svg class="key-point-icon" width="clamp(16px,1.4vw,20px)" height="clamp(16px,1.4vw,20px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="key-point-text"><span class="key-point-label">The levelling effect</span>Performance gains from AI are largest for mid-performers, narrowing the gap with top performers — with major implications for talent strategy.</div>
+      </li>
+      <li class="key-point">
+        <svg class="key-point-icon" width="clamp(16px,1.4vw,20px)" height="clamp(16px,1.4vw,20px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div class="key-point-text"><span class="key-point-label">Governance first</span>Organisations with clear AI governance frameworks deploy 3× faster and with fewer costly rollbacks than those that treat governance as an afterthought.</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="slide slide-quote">
+    <blockquote class="pull-quote">The question is not whether AI will change your organisation. It is whether you will shape that change, or be shaped by it.</blockquote>
+    <cite class="quote-attribution">— AI Leaders Forum, 2026</cite>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="slide slide-closing">
+    <div class="closing-title">
+      Start building.<br>
+      <em>Start today.</em>
+    </div>
+    <div class="closing-rule"></div>
+    <div class="closing-detail">Executive Presentation Skill · Example Output · github.com/Superevh/ExecutivePresentation</div>
+  </section>
+
+</div>
+
+<nav class="slide-nav" id="nav"></nav>
+<div id="slide-counter"></div>
+
+<script>
+  const container = document.getElementById('sc');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const nav = document.getElementById('nav');
+  const counter = document.getElementById('slide-counter');
+  let current = 0;
+
+  const slideTitles = ['Cover', 'Chapter 01', 'Reading List', 'Chapter 02', 'Key Insights', 'Pull Quote', 'Closing'];
+
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'nav-dot';
+    btn.title = slideTitles[i] || `Slide ${i + 1}`;
+    btn.addEventListener('click', () => goTo(i));
+    nav.appendChild(btn);
+  });
+
+  function goTo(i) {
+    current = Math.max(0, Math.min(i, slides.length - 1));
+    slides[current].scrollIntoView({ behavior: 'smooth' });
+    update();
+  }
+
+  function update() {
+    document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { current = slides.indexOf(e.target); update(); } });
+  }, { threshold: 0.6 });
+  slides.forEach(s => observer.observe(s));
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
+    if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); goTo(current - 1); }
+  });
+
+  let touchY = 0;
+  container.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
+  container.addEventListener('touchend', e => {
+    const diff = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+  }, { passive: true });
+
+  update();
+</script>
+</body>
+</html>
