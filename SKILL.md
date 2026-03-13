@@ -116,11 +116,11 @@ For each resource mentioned, capture:
 
 ## Step 2: Design System
 
-### Colour Palette (LOCKED — Suncorp brand, preserve exactly)
+### Colour Palette (LOCKED — preserve exactly)
 ```css
 --dark-teal:  #1A6B5A;
 --teal:       #00857C;
---yellow:     #FFD100;   /* Suncorp Yellow — PRIMARY brand accent, use on card tops, rules, highlights */
+--yellow:     #FFD100;   /* PRIMARY brand accent — use on card tops, rules, highlights */
 --offwhite:   #F5F5F0;
 --charcoal:   #1C2B39;
 --mid-grey:   #6B7C8D;
@@ -129,7 +129,7 @@ For each resource mentioned, capture:
 /* NEVER use red, crimson, rose, coral, or any red-family colour */
 ```
 
-The palette above is the Suncorp brand anchor. Do not introduce new hues. All design expression — atmosphere, texture, depth — must come from **composition, layering, and typography**, not from new colours.
+The palette above is the design anchor. Do not introduce new hues. All design expression — atmosphere, texture, depth — must come from **composition, layering, and typography**, not from new colours.
 
 **`--yellow` is the primary accent colour** — it must appear on every card as the top border line (see Card System below), and on all key structural punctuation (rules, highlights, active nav dots on dark slides). It should feel like a signature, not decoration.
 
@@ -159,21 +159,24 @@ The palette above is the Suncorp brand anchor. Do not introduce new hues. All de
 
 Choose fonts that are **refined, professional, and distinctive**. Never default to Inter, Roboto, Arial, Space Grotesk, or system-ui. **Equally important: avoid overtly artistic, display, or decorative fonts** — outputs are executive documents, not editorial magazines. The target aesthetic is a top-tier consulting firm or premium in-house design team.
 
+**Primary pairing — clean humanist sans (use as default):**
+- `'Nunito Sans'` (300/400/600/700, body + UI) + `'Lora'` (600/700, headings) + `'DM Mono'` (labels) — **preferred default** *(clean, approachable, corporate — humanist sans body with authoritative serif headings)*
+
 **Approved professional pairings (rotate — don't always pick the same):**
-- `'Cormorant Garamond'` (display, cover/closing only) + `'DM Serif Display'` (headings) + `'DM Sans'` (400/500/600, body) + `'DM Mono'` (labels) — **preferred default** *(high contrast, editorial weight on cover/closing, clean body)*
-- `'Cormorant Garamond'` + `'DM Sans'` + `'DM Mono'` — refined intelligence *(professional services)*
-- `'Libre Caslon Text'` + `'DM Sans'` + `'DM Mono'` — scholarly authority *(research, policy)*
-- `'EB Garamond'` (500/600) + `'DM Sans'` + `'DM Mono'` — classical precision *(legal, finance)*
+- `'Nunito Sans'` + `'Lora'` + `'DM Mono'` — clean corporate *(financial services, insurance)*  ← **default**
+- `'Source Sans 3'` + `'Lora'` + `'DM Mono'` — open humanist *(professional services, consulting)*
+- `'Lato'` + `'DM Serif Display'` + `'DM Mono'` — warm professional *(enterprise, HR, training)*
+- `'Libre Caslon Text'` + `'Nunito Sans'` + `'DM Mono'` — scholarly authority *(research, policy)*
 - `'Spectral'` + `'Source Sans 3'` + `'DM Mono'` — technical editorial *(data, engineering)*
 
 **Two-font-family rule for cover + closing slides:**
 Use a `--font-display` variable distinct from `--font-serif` for the cover title and closing title only. This creates intentional typographic contrast between the high-impact bookend slides and the functional content slides.
 
 ```css
---font-display: 'Cormorant Garamond', Georgia, serif;  /* cover + closing titles only */
---font-serif:   'DM Serif Display', Georgia, serif;    /* chapter titles, headings */
---font-sans:    'DM Sans', sans-serif;                 /* all body text */
---font-mono:    'DM Mono', monospace;                  /* labels, badges, counters */
+--font-display: 'Lora', Georgia, serif;           /* cover + closing titles only */
+--font-serif:   'Lora', Georgia, serif;            /* chapter titles, headings */
+--font-sans:    'Nunito Sans', sans-serif;         /* all body text */
+--font-mono:    'DM Mono', monospace;              /* labels, badges, counters */
 ```
 
 ```css
@@ -191,38 +194,38 @@ Use a `--font-display` variable distinct from `--font-serif` for the cover title
 
 **Weight rules — NON-NEGOTIABLE:**
 - Serif display fonts must be loaded at weight **600 or 700 minimum** — never 400 or italic-only. Thin serifs read as weak on slides.
-- Sans-serif body must be **400 as the floor** — never 300 or light. DM Sans 400 is the correct baseline.
-- Always explicitly specify weights in the Google Fonts URL: `family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600`
+- Sans-serif body must be **400 as the floor** — never 300 or light. Nunito Sans 400 is the correct baseline.
+- Always explicitly specify weights in the Google Fonts URL: `family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700`
 
 **Fonts to avoid entirely** — too decorative, too thin, or too casual for executive contexts:
-- `Fraunces`, `Syne`, `Josefin Sans`, `Abril Fatface`, `Bebas Neue`, `Raleway`, `Satisfy`, `Lobster`, `Playfair Display` (ornate ampersand)
+- `Fraunces`, `Syne`, `Josefin Sans`, `Abril Fatface`, `Bebas Neue`, `Raleway`, `Satisfy`, `Lobster`, `Playfair Display` (ornate ampersand), `Cormorant Garamond` (too editorial/literary for corporate contexts)
 - Any font loaded at weight 300 or below for body text
 
-Choose the pairing that fits the *content's tone and audience*. When in doubt, use `'DM Serif Display'` + `'DM Sans'`.
+Choose the pairing that fits the *content's tone and audience*. When in doubt, use `'Lora'` + `'Nunito Sans'`.
 
 All font sizes and spacing **must use `clamp(min, preferred, max)`** — never hard-coded px/rem values. This is non-negotiable.
 
 ```css
-/* Minimum clamp() sizing rules — v1.6 scale */
-.cover-title    { font-size: clamp(40px, 6vw, 68px); }
-.cover-subtitle { font-size: clamp(19px, 2vw, 24px); font-weight: 400; }   /* never weight 300 */
-.cover-eyebrow  { font-size: clamp(14px, 1.4vw, 16px); }
-.chapter-title  { font-size: clamp(34px, 4.2vw, 48px); }
-.chapter-precis { font-size: clamp(17px, 1.8vw, 21px); }
-.chapter-number { font-size: clamp(14px, 1.4vw, 16px); }
-.body-text      { font-size: clamp(17px, 1.7vw, 20px); }
-.resource-title { font-size: clamp(19px, 2.1vw, 24px); }
-.resource-author{ font-size: clamp(15px, 1.5vw, 18px); }
-.resource-precis{ font-size: clamp(15px, 1.5vw, 18px); }
-.badge-text     { font-size: clamp(13px, 1.3vw, 15px); }
-.link-btn       { font-size: clamp(13px, 1.3vw, 15px); padding: 5px 12px; }
-.stat-value     { font-size: clamp(44px, 5.5vw, 62px); }
-.stat-label     { font-size: clamp(16px, 1.6vw, 19px); }
-.slide-footer   { font-size: clamp(13px, 1.3vw, 15px); }
-.section-label  { font-size: clamp(13px, 1.3vw, 15px); }
-.pull-quote     { font-size: clamp(32px, 4.2vw, 52px); }
-.closing-title  { font-size: clamp(42px, 6vw, 68px); }
-.closing-detail { font-size: clamp(17px, 1.8vw, 21px); }
+/* Minimum clamp() sizing rules — v2.1 scale (increased ~15%) */
+.cover-title    { font-size: clamp(48px, 7vw, 80px); }
+.cover-subtitle { font-size: clamp(22px, 2.4vw, 28px); font-weight: 400; }   /* never weight 300 */
+.cover-eyebrow  { font-size: clamp(14px, 1.5vw, 17px); }
+.chapter-title  { font-size: clamp(40px, 5vw, 58px); }
+.chapter-precis { font-size: clamp(20px, 2.1vw, 25px); }
+.chapter-number { font-size: clamp(14px, 1.5vw, 17px); }
+.body-text      { font-size: clamp(19px, 1.95vw, 23px); }
+.resource-title { font-size: clamp(21px, 2.4vw, 27px); }
+.resource-author{ font-size: clamp(16px, 1.7vw, 20px); }
+.resource-precis{ font-size: clamp(16px, 1.7vw, 20px); }
+.badge-text     { font-size: clamp(12px, 1.3vw, 14px); }
+.link-btn       { font-size: clamp(12px, 1.3vw, 14px); padding: 5px 12px; }
+.stat-value     { font-size: clamp(52px, 6.5vw, 74px); }
+.stat-label     { font-size: clamp(18px, 1.85vw, 22px); }
+.slide-footer   { font-size: clamp(12px, 1.3vw, 14px); }
+.section-label  { font-size: clamp(12px, 1.3vw, 14px); }
+.pull-quote     { font-size: clamp(36px, 4.8vw, 60px); }
+.closing-title  { font-size: clamp(50px, 7vw, 80px); }
+.closing-detail { font-size: clamp(20px, 2.1vw, 25px); }
 ```
 
 **Never negate CSS functions directly.** Use `calc(-1 * clamp(...))` not `-clamp(...)`.
@@ -249,7 +252,7 @@ All font sizes and spacing **must use `clamp(min, preferred, max)`** — never h
 
 ### Card System — Yellow Top Accent (NON-NEGOTIABLE)
 
-**Every card — resource cards, key-point cards, stat cards — must have a yellow top accent line.** This is the Suncorp brand signature and gives the layout its professional consulting finish.
+**Every card — resource cards, key-point cards, stat cards — must have a yellow top accent line.** This is the design signature that gives the layout its professional consulting finish.
 
 ```css
 /* Apply to ALL card types */
@@ -257,7 +260,7 @@ All font sizes and spacing **must use `clamp(min, preferred, max)`** — never h
 .key-point,
 .stat-card {
   border: 1px solid var(--light-grey);
-  border-top: 3px solid var(--yellow);   /* Suncorp Yellow — required on every card */
+  border-top: 3px solid var(--yellow);   /* Yellow accent — required on every card */
   border-radius: 8px;
 }
 
@@ -766,7 +769,7 @@ Ask ONE focused question to unblock.
 - [ ] No fabricated titles, authors, or direct product URLs
 - [ ] Every resource has at least 2 working search/stream links
 - [ ] **Zero red or red-adjacent colours anywhere** (including Netflix/YouTube buttons)
-- [ ] Typography is professional and distinctive — not Inter, Roboto, Arial, Space Grotesk, or any decorative/artistic font
+- [ ] Typography is professional and distinctive — not Inter, Roboto, Arial, Space Grotesk, Cormorant Garamond, or any decorative/artistic font
 - [ ] **All font sizes use `clamp()`** — no hard-coded px/rem
 - [ ] Colour palette uses CSS variables throughout; no new hues introduced
 - [ ] Background has depth — gradient, texture, or layered pattern (not flat colour)
@@ -809,4 +812,4 @@ Ask ONE focused question to unblock.
 
 ---
 
-*Skill version 1.9 — Cover + closing slides now use a dedicated `--font-display` variable (Cormorant Garamond 700) distinct from `--font-serif` used on content slides. This creates intentional typographic contrast between bookend slides and body slides. Italic second lines in yellow codified as a design pattern for cover/closing titles.*
+*Skill version 2.1 — Default typography updated to humanist sans-serif pairing: Lora (headings) + Nunito Sans (body). Brand-specific references removed; palette and design system retained as generic corporate standard. Cover + closing slides use a dedicated `--font-display` variable (Lora 700) distinct from `--font-serif` used on content slides. Font scale increased ~15% across all type roles for improved legibility at presentation scale.*
