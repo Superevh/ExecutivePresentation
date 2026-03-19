@@ -351,16 +351,23 @@ html, body {
 
 ```javascript
 // === SLIDE NAVIGATION ===
+// FIX: Use container.scrollTo(offsetTop) instead of scrollIntoView().
+// scrollIntoView() conflicts with scroll-snap-type:mandatory and breaks
+// navigation from slide 2 onward. scrollTo against the container is reliable.
 const container = document.querySelector('.slide-container');
-const slides = document.querySelectorAll('.slide');
+const slides = Array.from(document.querySelectorAll('.slide'));
 let current = 0;
+let isNavigating = false;
 
 function goTo(index) {
   index = Math.max(0, Math.min(slides.length - 1, index));
+  if (index === current && !isNavigating) return;
   current = index;
-  slides[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  isNavigating = true;
+  container.scrollTo({ top: slides[index].offsetTop, behavior: 'smooth' });
   updateDots();
   updateCounter();
+  setTimeout(() => { isNavigating = false; }, 600);
 }
 
 document.addEventListener('keydown', e => {
@@ -380,11 +387,31 @@ container.addEventListener('touchend', e => {
   if (Math.abs(delta) > 50) goTo(current + (delta > 0 ? 1 : -1));
 });
 
-// Scroll-snap sync (keeps current index accurate)
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) current = Array.from(slides).indexOf(e.target); });
-}, { root: container, threshold: 0.6 });
-slides.forEach(s => observer.observe(s));
+// Scroll-snap sync — use scrollend (or fallback scroll) to keep index accurate
+// after native scroll-snap settles, without fighting the snap engine mid-scroll.
+function syncCurrent() {
+  if (isNavigating) return;
+  const mid = container.scrollTop + container.clientHeight / 2;
+  const idx = slides.findIndex(s => s.offsetTop + s.offsetHeight > mid);
+  if (idx !== -1 && idx !== current) { current = idx; updateDots(); updateCounter(); }
+}
+container.addEventListener('scrollend', syncCurrent);              // modern browsers
+container.addEventListener('scroll', () => {                       // fallback
+  clearTimeout(container._scrollTimer);
+  container._scrollTimer = setTimeout(syncCurrent, 120);
+}, { passive: true });
+
+// Dot navigation: generate dots if not already in markup
+const nav = document.querySelector('.slide-nav');
+if (nav && nav.children.length === 0) {
+  slides.forEach((s, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Slide ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    nav.appendChild(dot);
+  });
+}
 
 function updateDots() {
   document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
@@ -393,6 +420,10 @@ function updateCounter() {
   const el = document.getElementById('slide-counter');
   if (el) el.textContent = `${current + 1} / ${slides.length}`;
 }
+
+// Initialise
+updateDots();
+updateCounter();
 ```
 
 ### Navigation UI (include in every output)
